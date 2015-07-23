@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'done'
+  s.name        = 'idone'
   s.version     = '0.0.2'
   s.date        = '2015-07-24'
   s.summary     = "done list"
