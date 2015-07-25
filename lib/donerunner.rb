@@ -33,12 +33,11 @@ class DoneRunner
 	end
 
 	def self.execute (args)
-
+		array ||= []
+		
 		if File.file?("db")
 			file = File.open("db", "rb")
 			contents = file.read
-			array ||= []
-
 			JSON.parse(contents).each do |e|
 				array.push Done.from_json e
 			end
