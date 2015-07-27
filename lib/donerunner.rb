@@ -37,9 +37,11 @@ class DoneRunner
 		end
 
 		if args.length == 0
-			sort_and_display array
-		elsif args[0] == "today"
 			sort_and_display(array, 1)
+		elsif args[0] == "week"
+			sort_and_display(array, 7)
+		elsif args[0] == "all"
+			sort_and_display array
 		else
 			text = args.join(" ")
 
