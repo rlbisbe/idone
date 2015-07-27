@@ -2,30 +2,23 @@
 
 require 'json'
 require 'date'
+require 'done'
 
 class DoneRunner
 
-	class Done
-		attr_accessor :text, :date
-		def initialize(text, date = Date.today)
-			@text = text
-			@date = date
-		end
+	def self.group_and_sort(array, limit = nil)
+		group = array.sort { |a,b| a.date <=> b.date}.reverse.group_by { |s| s.date}
 
-		def to_json(options)
-	        {'text' => @text, 'date' => @date}.to_json
-	    end
 
-	    def self.from_json data
-	        self.new data['text'], data['date']
-	    end
+		return limit.nil? ? group : Hash[group.take limit]
 	end
 
-	def self.sort_and_display(array)
-		group = array.group_by { |s| s.date}
+	def self.sort_and_display(array, days)
+		group = group_and_sort(array, days)
+
 
 		group.each do |k,v|
-			puts "Date: " + k
+			puts "Date: " + k.to_s
 			v.each do |value|
 				puts "- " + value.text
 			end
@@ -45,8 +38,9 @@ class DoneRunner
 
 		if args.length == 0
 			sort_and_display array
+		elsif args[0] == "today"
+			sort_and_display array 1
 		else
-
 			text = args.join(" ")
 
 			t = Done.new(args.join(" "))
