@@ -13,7 +13,7 @@ class DoneRunner
 		return limit.nil? ? group : Hash[group.take limit]
 	end
 
-	def self.sort_and_display(array, days)
+	def self.sort_and_display(array, days = nil)
 		group = group_and_sort(array, days)
 
 
@@ -39,7 +39,7 @@ class DoneRunner
 		if args.length == 0
 			sort_and_display array
 		elsif args[0] == "today"
-			sort_and_display array 1
+			sort_and_display(array, 1)
 		else
 			text = args.join(" ")
 
